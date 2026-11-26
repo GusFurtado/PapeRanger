@@ -42,7 +42,7 @@ nav:
   - Your documents on disk: storage.md
   - Encryption: encryption.md
   - Security: security.md
-  - Development: development.md
+  - About: about.md
 
 plugins:
   - search
