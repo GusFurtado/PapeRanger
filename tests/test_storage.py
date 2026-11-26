@@ -32,7 +32,7 @@ from .conftest import JPEG, PDF, PNG, add_doc, image, pdf, size_of, tree
         ("Exame 01:09\\2026", "Exame 01-09-2026"),
         ('What? "Yes" <no>|*', "What Yes no"),
         ("..hidden", "hidden"),
-        (". .papelada", "papelada"),
+        (". .paperanger", "paperanger"),
         ("trailing. . ", "trailing"),
         ("  lots   of\tspace ", "lots of space"),
         ("CON", "CON_"),
@@ -262,10 +262,10 @@ def test_expiry_dates_are_optional(lib):
 def test_documents_from_before_expiry_dates_have_none(lib, tmp_path, key):
     section = lib.create_section("S", "folder")
     add_doc(lib, section, "Old")
-    index = json.loads((tmp_path / ".papelada/index.json").read_text())
+    index = json.loads((tmp_path / ".paperanger/index.json").read_text())
     for doc in index["documents"].values():
         del doc["expires"]
-    (tmp_path / ".papelada/index.json").write_text(json.dumps(index))
+    (tmp_path / ".paperanger/index.json").write_text(json.dumps(index))
     assert [d["expires"] for d in Library(tmp_path, key).list_documents()] == [None]
 
 
@@ -281,7 +281,7 @@ def _photo_doc(lib, title="ID", content=None, section=None):
 def test_edits_keep_the_upload_once_and_restore_brings_it_back(lib, tmp_path):
     uploaded = image((60, 40))
     _, doc, page_id = _photo_doc(lib, content=uploaded)
-    backup = tmp_path / ".papelada/originals" / f"{page_id}.jpg"
+    backup = tmp_path / ".paperanger/originals" / f"{page_id}.jpg"
 
     page = lib.edit_page(doc["id"], page_id, {"crop": {"x": 0, "y": 0, "w": 0.5, "h": 1}})
     assert page["edited"] and page["rev"] == 1 and page["edits"] == {"crop": {"x": 0, "y": 0, "w": 0.5, "h": 1}}
@@ -333,7 +333,7 @@ def test_converting_renames_the_file_and_restore_renames_it_back(lib, tmp_path):
     assert (page["mime"], page["ext"], page["path"]) == ("image/png", ".png", "S/ID.png")
     assert tree(tmp_path) == ["S/ID.png"]
     assert (tmp_path / "S/ID.png").read_bytes().startswith(b"\x89PNG")
-    assert (tmp_path / ".papelada/originals" / f"{page_id}.jpg").read_bytes() == uploaded
+    assert (tmp_path / ".paperanger/originals" / f"{page_id}.jpg").read_bytes() == uploaded
 
     page = lib.edit_page(doc["id"], page_id, {"format": "pdf", "rotate": 180})
     assert page["mime"] == "application/pdf" and page["editable"]
@@ -393,21 +393,21 @@ def test_deleting_a_document_removes_its_files_and_backups(lib, tmp_path):
     lib.thumbnail(doc["id"], page_id)
     lib.delete_document(doc["id"])
     assert tree(tmp_path) == []
-    assert list((tmp_path / ".papelada/originals").iterdir()) == []
-    assert list((tmp_path / ".papelada/thumbs").iterdir()) == []
+    assert list((tmp_path / ".paperanger/originals").iterdir()) == []
+    assert list((tmp_path / ".paperanger/thumbs").iterdir()) == []
     assert (tmp_path / "S").is_dir()
 
 
 def test_v1_crops_become_edited_pages(lib, tmp_path, key):
     """A v1 index has `cropped` instead of `edited`, and no recipe."""
     _, doc, page_id = _photo_doc(lib)
-    index = json.loads((tmp_path / ".papelada/index.json").read_text())
+    index = json.loads((tmp_path / ".paperanger/index.json").read_text())
     index["version"] = 1
     page = index["documents"][doc["id"]]["pages"][0]
     del page["edited"]
     page["cropped"] = True
-    (tmp_path / ".papelada/index.json").write_text(json.dumps(index))
-    (tmp_path / ".papelada/originals" / f"{page_id}.jpg").write_bytes(image((80, 80)))
+    (tmp_path / ".paperanger/index.json").write_text(json.dumps(index))
+    (tmp_path / ".paperanger/originals" / f"{page_id}.jpg").write_bytes(image((80, 80)))
 
     reopened = Library(tmp_path, key)
     page = reopened.list_documents()[0]["pages"][0]
@@ -424,7 +424,7 @@ def test_v1_crops_become_edited_pages(lib, tmp_path, key):
 def test_thumbnails_follow_the_edits_and_are_cached_per_revision(lib, tmp_path, encrypted):
     lib.set_encrypted(encrypted)
     _, doc, page_id = _photo_doc(lib, content=image((1200, 800)))
-    thumbs = tmp_path / ".papelada/thumbs"
+    thumbs = tmp_path / ".paperanger/thumbs"
 
     thumb = lib.thumbnail(doc["id"], page_id)
     assert size_of(thumb) == (400, 267)
@@ -441,7 +441,7 @@ def test_switching_encryption_drops_the_thumbnails(lib, tmp_path):
     _, doc, page_id = _photo_doc(lib)
     lib.thumbnail(doc["id"], page_id)
     lib.set_encrypted(True)
-    assert list((tmp_path / ".papelada/thumbs").iterdir()) == []
+    assert list((tmp_path / ".paperanger/thumbs").iterdir()) == []
 
 
 def test_only_images_have_thumbnails(lib):
@@ -480,13 +480,13 @@ def test_selected_documents_as_pdfs(lib):
     rg = add_doc(lib, bob, "RG", pages=[("r.png", "image/png", image((40, 80), fmt="PNG"))])
 
     data, name = lib.export_pdfs([exam["id"], rg["id"], "missing"], merge=False)
-    assert name == "papelada.zip"
+    assert name == "paperanger.zip"
     with zipfile.ZipFile(io.BytesIO(data)) as zf:
         assert sorted(zf.namelist()) == ["Alice/Exam.pdf", "Bob/RG.pdf"]
         assert len(PdfReader(io.BytesIO(zf.read("Alice/Exam.pdf"))).pages) == 3
 
     data, name = lib.export_pdfs([rg["id"], exam["id"]], merge=True)
-    assert name == "papelada.pdf"
+    assert name == "paperanger.pdf"
     reader = PdfReader(io.BytesIO(data))
     assert len(reader.pages) == 4
     portrait = [page.mediabox.height > page.mediabox.width for page in reader.pages]
@@ -583,8 +583,8 @@ def test_encrypting_leaves_nothing_readable_in_the_volume(lib, tmp_path, key):
     assert lib.set_encrypted(True) == 4  # 3 pages + 1 backup of an edited page
     assert tree(tmp_path) == []
     assert not (tmp_path / "Alice").exists()
-    assert not (tmp_path / ".papelada/index.json").exists()
-    readable = [p for p in (tmp_path / ".papelada").rglob("*") if p.is_file() and p.name != "settings.json"]
+    assert not (tmp_path / ".paperanger/index.json").exists()
+    readable = [p for p in (tmp_path / ".paperanger").rglob("*") if p.is_file() and p.name != "settings.json"]
     assert all(p.suffix == ".enc" for p in readable)
     assert not any(b"Blood test" in p.read_bytes() or JPEG in p.read_bytes() for p in readable)
 
@@ -636,10 +636,10 @@ def test_an_encrypted_library_wont_open_without_the_right_key(lib, tmp_path):
 def test_an_interrupted_switch_is_finished_on_the_next_start(lib, tmp_path, key):
     _populate(lib)
     # Crash right after the mode was saved, before any file was converted.
-    (tmp_path / ".papelada/settings.json").write_text(json.dumps({"encrypted": True}))
+    (tmp_path / ".paperanger/settings.json").write_text(json.dumps({"encrypted": True}))
     reopened = Library(tmp_path, key)
     assert tree(tmp_path) == []
-    assert not (tmp_path / ".papelada/index.json").exists()
+    assert not (tmp_path / ".paperanger/index.json").exists()
 
     # Crash after a page was written in the new form but before the old one was removed.
     reopened.set_encrypted(False)
@@ -764,3 +764,28 @@ def test_scan_keeps_names_when_stems_clash(lib, key, tmp_path):
     assert tree(tmp_path) == ["S/scan.jpg", "S/scan.png"]
     reopened = Library(tmp_path, key)
     assert sorted(p["path"] for d in reopened.list_documents() for p in d["pages"]) == paths
+
+
+def test_a_volume_from_before_the_rename_is_moved_on_start(lib, tmp_path, key):
+    alice = lib.create_section("Alice", "user")
+    add_doc(lib, alice, "RG")
+    add_doc(lib, alice, "Locked")
+    lib.set_encrypted(True)
+    (tmp_path / ".paperanger").rename(tmp_path / ".papelada")  # as Papelada left it
+
+    reopened = Library(tmp_path, key)
+    assert not (tmp_path / ".papelada").exists()
+    assert reopened.encrypted
+    assert sorted(d["title"] for d in reopened.list_documents()) == ["Locked", "RG"]
+    reopened.set_encrypted(False)
+    assert tree(tmp_path) == ["Alice/Locked.jpg", "Alice/RG.jpg"]
+
+
+def test_the_old_folder_is_left_alone_when_both_exist(lib, tmp_path, key):
+    add_doc(lib, lib.create_section("Alice", "user"), "RG")
+    (tmp_path / ".papelada").mkdir()
+    (tmp_path / ".papelada/index.json").write_text("{}")
+
+    reopened = Library(tmp_path, key)
+    assert [d["title"] for d in reopened.list_documents()] == ["RG"]
+    assert (tmp_path / ".papelada/index.json").read_text() == "{}"

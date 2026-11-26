@@ -1,14 +1,14 @@
-"""Papelada's library: sections, tags and documents kept in one volume.
+"""PapeRanger's library: sections, tags and documents kept in one volume.
 
 Layout of the volume (DATA_DIR, `/data` in the container):
 
     <Section>/<Document title>.<ext>            a single-page document
     <Section>/<Document title> - 2.<ext>        page 2 of a multi-page one
-    .papelada/index.json                        sections, tags, document metadata
-    .papelada/settings.json                     encryption and upload preferences
-    .papelada/originals/<page id>.<ext>         an edited page as uploaded
-    .papelada/thumbs/<page id>-<rev>.webp       grid thumbnail cache (disposable)
-    .papelada/vault/<page id>.enc               page content while encrypted
+    .paperanger/index.json                      sections, tags, document metadata
+    .paperanger/settings.json                   encryption and upload preferences
+    .paperanger/originals/<page id>.<ext>       an edited page as uploaded
+    .paperanger/thumbs/<page id>-<rev>.webp     grid thumbnail cache (disposable)
+    .paperanger/vault/<page id>.enc             page content while encrypted
 
 Unencrypted, every page is an ordinary file with a human-readable name inside
 its section's folder, so the volume can be browsed and copied directly.
@@ -39,7 +39,10 @@ from cryptography.fernet import Fernet, InvalidToken
 
 from . import images
 
-META_DIR_NAME = ".papelada"
+META_DIR_NAME = ".paperanger"
+# Where the app kept its files while it was called Papelada; moved to
+# META_DIR_NAME on the first start (see Library.__init__).
+LEGACY_META_DIR_NAME = ".papelada"
 INDEX_FILE_NAME = "index.json"
 SETTINGS_FILE_NAME = "settings.json"
 VAULT_DIR_NAME = "vault"
@@ -72,7 +75,7 @@ _MIME_BY_EXTENSION.update({".jpeg": "image/jpeg", ".jpe": "image/jpeg", ".tif": 
 _ICON = re.compile(r"[a-z0-9-]{1,40}")
 _EXTENSION = re.compile(r"\.[a-z0-9]{1,10}")
 
-log = logging.getLogger("papelada")
+log = logging.getLogger("paperanger")
 
 Paths = Tuple[Path, Path]  # (encrypted path, plain path) of one stored file
 
@@ -231,6 +234,7 @@ class Library:
         self.lock = threading.RLock()
 
         try:
+            self._move_legacy_meta_dir()
             self.vault_dir.mkdir(parents=True, exist_ok=True)
             self.originals_dir.mkdir(parents=True, exist_ok=True)
             self.thumbs_dir.mkdir(parents=True, exist_ok=True)
@@ -257,6 +261,19 @@ class Library:
         else:
             if converted:
                 log.warning("Finished an interrupted encryption switch: converted %d files.", converted)
+
+    def _move_legacy_meta_dir(self) -> None:
+        """A volume written while the app was called Papelada keeps its files in
+        `.papelada/`: rename it once, in place (same volume, so it's atomic)."""
+        legacy_dir = self.root / LEGACY_META_DIR_NAME
+        if not legacy_dir.is_dir():
+            return
+        if self.meta_dir.exists():
+            log.warning("Both %s and %s exist in %s; using %s and leaving %s alone.",
+                        META_DIR_NAME, LEGACY_META_DIR_NAME, self.root, META_DIR_NAME, LEGACY_META_DIR_NAME)
+            return
+        legacy_dir.rename(self.meta_dir)
+        log.warning("Moved %s to %s (Papelada is now called PapeRanger).", LEGACY_META_DIR_NAME, META_DIR_NAME)
 
     # --- index -----------------------------------------------------------
 
@@ -1092,13 +1109,13 @@ class Library:
                 raise Invalid("not_exportable", title=title)
         pdfs = [(path, self._pdf(pages, title)) for path, title, pages in docs]
         if merge:
-            name = pdfs[0][0].split("/")[-1] if len(pdfs) == 1 else "papelada.pdf"
+            name = pdfs[0][0].split("/")[-1] if len(pdfs) == 1 else "paperanger.pdf"
             return self._pdf([(content, "application/pdf") for _, content in pdfs]), name
         buf = io.BytesIO()
         with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
             for path, content in pdfs:
                 zf.writestr(path, content)
-        return buf.getvalue(), "papelada.zip"
+        return buf.getvalue(), "paperanger.zip"
 
     def export_zip(self, doc_ids: List[str]) -> bytes:
         """A zip of the chosen documents laid out like the volume itself

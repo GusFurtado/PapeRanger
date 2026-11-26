@@ -1,11 +1,11 @@
 services:
-  papelada:
-    image: ghcr.io/gusfurtado/papelada:latest
+  paperanger:
+    image: ghcr.io/gusfurtado/paperanger:latest
     # To build from source instead, replace `image` with:
     # build: .
-    container_name: papelada
+    container_name: paperanger
     restart: unless-stopped
-    # Papelada writes files as this user, so they're yours to browse and copy.
+    # PapeRanger writes files as this user, so they're yours to browse and copy.
     # Use the owner of DOCUMENTS_PATH (`id -u` and `id -g`).
     user: "${PUID:-1000}:${PGID:-1000}"
     ports:

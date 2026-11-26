@@ -68,12 +68,12 @@ def test_wrong_credentials(client, username, password):
 
 def test_forged_and_expired_sessions_are_rejected(client, lib):
     for token in ["", "x", "a.b", "1.zz", "99999999999.00"]:
-        client.cookies.set("papelada_session", token)
+        client.cookies.set("paperanger_session", token)
         assert client.get("/api/sections").status_code == 401
 
     other = TestClient(create_app(lib, credentials=("alice", "s3cret")))
     login(other)
-    client.cookies.set("papelada_session", other.cookies["papelada_session"])  # signed by another process's key
+    client.cookies.set("paperanger_session", other.cookies["paperanger_session"])  # signed by another process's key
     assert client.get("/api/sections").status_code == 401
 
     auth = client.app.state.auth

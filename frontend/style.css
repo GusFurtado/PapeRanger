@@ -1,165 +1,179 @@
-/* Fonts are vendored (SIL OFL, see vendor/fonts/) so the app makes no third-party requests. */
-@font-face {
-  font-family: 'IBM Plex Sans';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 400;
-  src: url(vendor/fonts/ibm-plex-sans-latin-400-normal.woff2) format('woff2');
-  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-}
-@font-face {
-  font-family: 'IBM Plex Sans';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 400;
-  src: url(vendor/fonts/ibm-plex-sans-latin-ext-400-normal.woff2) format('woff2');
-  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
-}
-@font-face {
-  font-family: 'IBM Plex Sans';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 500;
-  src: url(vendor/fonts/ibm-plex-sans-latin-500-normal.woff2) format('woff2');
-  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-}
-@font-face {
-  font-family: 'IBM Plex Sans';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 500;
-  src: url(vendor/fonts/ibm-plex-sans-latin-ext-500-normal.woff2) format('woff2');
-  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
-}
-@font-face {
-  font-family: 'IBM Plex Sans';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 600;
-  src: url(vendor/fonts/ibm-plex-sans-latin-600-normal.woff2) format('woff2');
-  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-}
-@font-face {
-  font-family: 'IBM Plex Sans';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 600;
-  src: url(vendor/fonts/ibm-plex-sans-latin-ext-600-normal.woff2) format('woff2');
-  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
-}
-@font-face {
-  font-family: 'Instrument Serif';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 400;
-  src: url(vendor/fonts/instrument-serif-latin-400-normal.woff2) format('woff2');
-  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-}
-@font-face {
-  font-family: 'Instrument Serif';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 400;
-  src: url(vendor/fonts/instrument-serif-latin-ext-400-normal.woff2) format('woff2');
-  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
-}
+/* PapeRanger's look follows its sibling apps (SimuLancer, MarkoWizard): light by
+   default, warm neutral grays, the system font, a brand stripe over the header and
+   the outlined wordmark in index.html (the page loads no font). The app's own colors
+   are the Ranger's, from the icon: forest green #2E7D32 and its highlight #9CCC65;
+   the theme can change the accent, never the icon or "Ranger" in the wordmark. */
 
 :root {
-  --bg: #0c1016;
-  --bg-panel: #12171f;
-  --bg-panel-2: #171d27;
-  --ink: #eef1f5;
-  --ink-dim: #93a0b0;
-  --ink-faint: #576273;
-  --rule: #232a35;
-  --accent: #5b9bd5;
-  --accent-soft: rgba(91, 155, 213, 0.14);
-  --accent-ink: #0c1016;
-  --bad: #ff5d5d;
-  --bad-ink: #1a0505;
-  --serif: 'Instrument Serif', Georgia, serif;
-  --sans: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --bg: #f9f9f7;
+  --bg-panel: #ffffff;
+  --bg-panel-2: #f1f0ec;
+  --ink: #0b0b0b;
+  --ink-dim: #52514e;
+  --ink-faint: #85837d;
+  --rule: #e1e0d9;
+  --accent: #2e7d32;
+  --accent-soft: rgba(46, 125, 50, 0.10);
+  --accent-ink: #ffffff;
+  --brand: #2e7d32;
+  --brand-ink: #2e7d32;
+  --bad: #c62828;
+  --bad-ink: #ffffff;
+  --card-shadow: 0 1px 2px rgba(11, 11, 11, 0.06);
+  --card-shadow-hover: 0 6px 16px rgba(11, 11, 11, 0.10);
+  --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+
+/* Themes: six classes from the RPG icon set (rpg-icons/paletas.json), each light and
+   dark. frontend/theme.js sets data-theme (the class) and data-mode (light or dark,
+   resolved from "auto" by the system's setting) on <html>. The theme moves the
+   accent, the stripe and, in dark mode, tints the neutrals with the class's shadow;
+   the icon and "Ranger" in the wordmark stay the app's own. The class blocks below
+   are generated by rpg-icons/temas.py: edit the palette there, not them. */
+:root[data-mode="dark"] {
+  --brand-ink: #9ccc65;
+  --bad: #ff6b6b;
+  --bad-ink: #1a0505;
+  --card-shadow: none;
+  --card-shadow-hover: 0 6px 16px rgba(0, 0, 0, 0.5);
   color-scheme: dark;
 }
 
-/* Themes: only colors change. The default (Midnight) is the :root set above;
-   frontend/theme.js sets data-theme on <html>. */
-:root[data-theme="forest"] {
-  --bg: #0d1511;
-  --bg-panel: #131d18;
-  --bg-panel-2: #192520;
-  --ink: #eaf2ed;
-  --ink-dim: #93aa9c;
-  --ink-faint: #5a7164;
-  --rule: #23332b;
-  --accent: #4fb286;
-  --accent-soft: rgba(79, 178, 134, 0.15);
-  --accent-ink: #07130d;
-}
-
-:root[data-theme="plum"] {
-  --bg: #130f18;
-  --bg-panel: #1a1520;
-  --bg-panel-2: #211b29;
-  --ink: #f2eef6;
-  --ink-dim: #a597b3;
-  --ink-faint: #6d5f7b;
-  --rule: #302739;
-  --accent: #b685e0;
-  --accent-soft: rgba(182, 133, 224, 0.15);
-  --accent-ink: #15091e;
-}
-
-:root[data-theme="paper"] {
-  --bg: #f6f3ec;
-  --bg-panel: #fffdf8;
-  --bg-panel-2: #efeadf;
-  --ink: #22201b;
-  --ink-dim: #5f594d;
-  --ink-faint: #8d8575;
-  --rule: #ddd6c5;
-  --accent: #a8561b;
-  --accent-soft: rgba(168, 86, 27, 0.12);
+:root[data-theme="wizard"] {
+  --accent: #6A2B8F;
+  --accent-soft: rgba(106, 43, 143, 0.1);
   --accent-ink: #ffffff;
-  --bad: #c62828;
-  --bad-ink: #ffffff;
-  color-scheme: light;
+  --brand: #6A2B8F;
 }
 
-:root[data-theme="sky"] {
-  --bg: #f1f5fa;
-  --bg-panel: #ffffff;
-  --bg-panel-2: #e7eef6;
-  --ink: #131c28;
-  --ink-dim: #4b5b6e;
-  --ink-faint: #7f8da0;
-  --rule: #d5dfeb;
-  --accent: #1d6fc2;
-  --accent-soft: rgba(29, 111, 194, 0.12);
-  --accent-ink: #ffffff;
-  --bad: #c62828;
-  --bad-ink: #ffffff;
-  color-scheme: light;
+:root[data-theme="wizard"][data-mode="dark"] {
+  --bg: #110d18;
+  --bg-panel: #1b1722;
+  --bg-panel-2: #25202c;
+  --ink: #fbf9fe;
+  --ink-dim: #cdc8d6;
+  --ink-faint: #948f9d;
+  --rule: #302b38;
+  --sheet: #3a3542;
+  --accent: #ce79f5;
+  --accent-soft: rgba(206, 121, 245, 0.14);
+  --accent-ink: #110d18;
 }
 
-:root[data-theme="rose"] {
-  --bg: #fbf3f4;
-  --bg-panel: #ffffff;
-  --bg-panel-2: #f5e8ea;
-  --ink: #2a1a1e;
-  --ink-dim: #6b4f56;
-  --ink-faint: #9b8187;
-  --rule: #ead7da;
-  --accent: #b83a5a;
-  --accent-soft: rgba(184, 58, 90, 0.12);
+:root[data-theme="dragoon"] {
+  --accent: #C62828;
+  --accent-soft: rgba(198, 40, 40, 0.1);
   --accent-ink: #ffffff;
-  --bad: #c62828;
-  --bad-ink: #ffffff;
-  color-scheme: light;
+  --brand: #C62828;
+}
+
+:root[data-theme="dragoon"][data-mode="dark"] {
+  --bg: #110d18;
+  --bg-panel: #1b1722;
+  --bg-panel-2: #25202c;
+  --ink: #fbf9fe;
+  --ink-dim: #cdc8d6;
+  --ink-faint: #948f9d;
+  --rule: #302b38;
+  --sheet: #3a3542;
+  --accent: #ee7b72;
+  --accent-soft: rgba(238, 123, 114, 0.14);
+  --accent-ink: #110d18;
+}
+
+:root[data-theme="ranger"] {
+  --accent: #2E7D32;
+  --accent-soft: rgba(46, 125, 50, 0.1);
+  --accent-ink: #ffffff;
+  --brand: #2E7D32;
+}
+
+:root[data-theme="ranger"][data-mode="dark"] {
+  --bg: #09120e;
+  --bg-panel: #131c18;
+  --bg-panel-2: #1c2521;
+  --ink: #f6fbf9;
+  --ink-dim: #c2cec9;
+  --ink-faint: #8a9590;
+  --rule: #27302c;
+  --sheet: #313b36;
+  --accent: #9CCC65;
+  --accent-soft: rgba(156, 204, 101, 0.14);
+  --accent-ink: #09120e;
+}
+
+:root[data-theme="paladin"] {
+  --accent: #1565C0;
+  --accent-soft: rgba(21, 101, 192, 0.1);
+  --accent-ink: #ffffff;
+  --brand: #1565C0;
+}
+
+:root[data-theme="paladin"][data-mode="dark"] {
+  --bg: #091018;
+  --bg-panel: #131a22;
+  --bg-panel-2: #1c242c;
+  --ink: #f7fafe;
+  --ink-dim: #c2ccd7;
+  --ink-faint: #8a939e;
+  --rule: #272f38;
+  --sheet: #313942;
+  --accent: #42A5F5;
+  --accent-soft: rgba(66, 165, 245, 0.14);
+  --accent-ink: #091018;
+}
+
+:root[data-theme="monk"] {
+  --accent: #b54f00;
+  --accent-soft: rgba(181, 79, 0, 0.1);
+  --accent-ink: #ffffff;
+  --brand: #EF6C00;
+}
+
+:root[data-theme="monk"][data-mode="dark"] {
+  --bg: #130f09;
+  --bg-panel: #1d1913;
+  --bg-panel-2: #27221c;
+  --ink: #fdfaf6;
+  --ink-dim: #d0c9c2;
+  --ink-faint: #97918a;
+  --rule: #322d27;
+  --sheet: #3c3731;
+  --accent: #FFA726;
+  --accent-soft: rgba(255, 167, 38, 0.14);
+  --accent-ink: #130f09;
+}
+
+:root[data-theme="necromancer"] {
+  --accent: #047c6f;
+  --accent-soft: rgba(4, 124, 111, 0.1);
+  --accent-ink: #ffffff;
+  --brand: #00897B;
+}
+
+:root[data-theme="necromancer"][data-mode="dark"] {
+  --bg: #091115;
+  --bg-panel: #131b20;
+  --bg-panel-2: #1c2429;
+  --ink: #f6fbfe;
+  --ink-dim: #c1ccd3;
+  --ink-faint: #8a949a;
+  --rule: #262f35;
+  --sheet: #30393f;
+  --accent: #26C6DA;
+  --accent-soft: rgba(38, 198, 218, 0.14);
+  --accent-ink: #091115;
 }
 
 * { box-sizing: border-box; }
+
+/* Native controls and scrollbars take the theme's accent and mode. */
+:root {
+  accent-color: var(--accent);
+  scrollbar-color: var(--rule) transparent;
+}
 
 [hidden] { display: none !important; }
 
@@ -181,6 +195,11 @@ button:disabled {
   cursor: default;
 }
 
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
 svg {
   display: block;
 }
@@ -192,15 +211,41 @@ header {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 20px 16px 16px;
-  border-bottom: 1px solid var(--rule);
+  padding: 13px 16px 10px;
+  background: var(--bg-panel);
+  /* The brand stripe and the hairline, as on SimuLancer's top bar. */
+  box-shadow: inset 0 3px 0 var(--brand), 0 1px 0 var(--rule);
+  position: relative;
+  z-index: 1;
 }
 
-header h1 {
-  font-family: var(--serif);
-  font-weight: 400;
-  font-size: clamp(24px, 5vw, 30px);
+header h1.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
   margin: 0;
+  line-height: 0;
+  color: var(--ink);
+}
+
+.brand img {
+  width: 30px;
+  height: 30px;
+  flex: none;
+}
+
+/* Montserrat Bold, outlined: the caps are 700 of the 917 units, so this height
+   gives caps of about 19px on a desktop and still fits a 360px phone. */
+.brand svg {
+  display: block;
+  height: clamp(17px, 4.9vw, 25px);
+  width: auto;
+  fill: currentColor;
+}
+
+.brand svg .ranger {
+  fill: var(--brand-ink);
 }
 
 .header-actions {
@@ -216,21 +261,27 @@ header button {
   color: var(--accent-ink);
   border: 1px solid var(--accent);
   border-radius: 8px;
-  padding: 8px 12px;
+  padding: 7px 12px;
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 header button.ghost {
-  background: transparent;
+  background: var(--bg-panel);
   color: var(--ink-dim);
   border-color: var(--rule);
+  font-weight: 500;
+}
+
+header button.ghost:hover {
+  color: var(--ink);
+  background: var(--accent-soft);
 }
 
 #logoutBtn,
 #securityBtn,
 #manageBtn {
-  padding: 8px 9px;
+  padding: 7px 9px;
 }
 
 .btn-icon {
@@ -252,7 +303,9 @@ header button.ghost {
   header { gap: 8px; }
   .header-actions { gap: 6px; }
   header .btn-label { display: none; }
-  header button { padding: 8px 9px; }
+  header button { padding: 7px 9px; }
+  .brand { gap: 8px; }
+  .brand img { width: 26px; height: 26px; }
 }
 
 /* --- sections and tag filter --------------------------------------------------- */
@@ -293,7 +346,7 @@ header button.ghost {
 }
 
 .section-tabs button.active {
-  color: var(--accent);
+  color: var(--ink);
   border-bottom-color: var(--accent);
   font-weight: 600;
 }
@@ -398,9 +451,9 @@ header button.ghost {
 }
 
 .welcome h2 {
-  font-family: var(--serif);
-  font-weight: 400;
-  font-size: 1.9rem;
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
   margin: 0 0 12px;
 }
 
@@ -422,55 +475,81 @@ header button.ghost {
 .document-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 10px;
-  padding: 12px 16px 24px;
+  gap: 12px;
+  padding: 14px 16px 24px;
 }
 
 .document-list.with-selection-bar {
   padding-bottom: 80px;
 }
 
+/* A card is the document itself: its first page edge to edge, then a short label. */
 .document-card {
   background: var(--bg-panel);
   border: 1px solid var(--rule);
-  border-radius: 10px;
-  padding: 10px;
+  border-radius: 8px;
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  gap: 4px;
   min-width: 0;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+
+@media (hover: hover) {
+  .document-card:hover {
+    box-shadow: var(--card-shadow-hover);
+    transform: translateY(-1px);
+  }
 }
 
 .document-card.selected {
   border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
   background: var(--accent-soft);
 }
 
 .document-card .thumb {
-  height: 90px;
-  border-radius: 6px;
+  aspect-ratio: 4 / 3;
   background: var(--bg-panel-2);
+  border-bottom: 1px solid var(--rule);
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  color: var(--ink-faint);
   overflow: hidden;
   position: relative;
 }
 
-.document-card .thumb svg {
-  width: 32px;
-  height: 32px;
+/* A file with no thumbnail (a PDF, say) shows a blank page with its type. */
+.sheet {
+  width: 58%;
+  aspect-ratio: 210 / 297;
+  margin-top: 13%;
+  flex: none;
+  padding: 14% 12% 0;
+  background:
+    repeating-linear-gradient(to bottom, rgba(128, 128, 128, 0.3) 0 2px, transparent 2px 9px)
+      content-box no-repeat,
+    var(--sheet, var(--bg-panel));
+  background-size: 100% 46px, auto;
+  box-shadow: 0 1px 3px rgba(11, 11, 11, 0.14), 0 0 0 1px rgba(128, 128, 128, 0.18);
+  border-radius: 2px;
+  position: relative;
 }
 
 .thumb-ext {
-  font-size: 0.7rem;
-  font-weight: 600;
+  position: absolute;
+  left: -6px;
+  top: 8%;
+  max-width: calc(100% + 6px);
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 0.62rem;
+  font-weight: 700;
   letter-spacing: 0.05em;
-  max-width: 90%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -539,6 +618,7 @@ header button.ghost {
 }
 
 .doc-title {
+  padding: 7px 9px 0;
   font-size: 0.8rem;
   font-weight: 600;
   overflow: hidden;
@@ -547,6 +627,7 @@ header button.ghost {
 }
 
 .doc-meta {
+  padding: 1px 9px 8px;
   font-size: 0.7rem;
   color: var(--ink-faint);
 }
@@ -580,6 +661,7 @@ header button.ghost {
 /* --- dialogs ----------------------------------------------------------------------- */
 
 dialog {
+  scrollbar-color: var(--rule) transparent;
   border: 1px solid var(--rule);
   border-radius: 12px;
   padding: 20px;
@@ -595,9 +677,9 @@ dialog::backdrop {
 }
 
 dialog h2 {
-  font-family: var(--serif);
-  font-weight: 400;
-  font-size: 1.5rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: -0.01em;
   margin: 0 0 16px;
 }
 
@@ -1431,6 +1513,33 @@ button.page-preview-item {
 
 /* --- theme picker -------------------------------------------------------------------- */
 
+.mode-switch {
+  display: flex;
+  margin-bottom: 8px;
+  padding: 3px;
+  gap: 3px;
+  background: var(--bg-panel-2);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+}
+
+.mode-switch button {
+  flex: 1;
+  padding: 5px 8px;
+  border: none;
+  border-radius: 6px;
+  background: none;
+  color: var(--ink-dim);
+  font-size: 0.8rem;
+}
+
+.mode-switch button.active {
+  background: var(--bg-panel);
+  color: var(--ink);
+  font-weight: 600;
+  box-shadow: 0 0 0 1px var(--rule), 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
 .theme-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1452,7 +1561,9 @@ button.page-preview-item {
 
 .theme-grid button.active {
   border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
   color: var(--ink);
+  font-weight: 600;
 }
 
 .theme-swatch {

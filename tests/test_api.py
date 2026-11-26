@@ -146,7 +146,7 @@ def test_pdf_download(client):
 
     res = client.post("/api/documents/pdf", json={"ids": [a["id"], b["id"]], "merge": True})
     assert res.headers["content-type"] == "application/pdf"
-    assert "filename*=UTF-8''papelada.pdf" in res.headers["content-disposition"]
+    assert "filename*=UTF-8''paperanger.pdf" in res.headers["content-disposition"]
 
     notes = upload(client, section["id"], "Notes", [("n.txt", b"hi", "text/plain")])
     res = client.post("/api/documents/pdf", json={"ids": [a["id"], notes["id"]], "merge": True})
@@ -164,4 +164,4 @@ def test_zip_download(client):
 def test_frontend_is_served(client):
     res = client.get("/")
     assert res.status_code == 200
-    assert "<title>Papelada</title>" in res.text
+    assert "<title>PapeRanger</title>" in res.text

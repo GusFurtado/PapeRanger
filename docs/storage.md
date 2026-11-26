@@ -11,7 +11,7 @@ documents/
 │   └── Blood test - 2.pdf
 ├── Rex/
 │   └── Vaccination card.jpg
-└── .papelada/                  ← the app's own data (index, originals of edited pages, thumbnails)
+└── .paperanger/                  ← the app's own data (index, originals of edited pages, thumbnails)
 ```
 
 Renaming a document or a section in the app renames its files or folder. Two
@@ -19,18 +19,18 @@ documents with the same title in one section get `Title.jpg` and `Title (2).jpg`
 Names are kept valid on Windows and macOS too, so the folder works over a network share.
 
 You're free to browse and copy anything in the volume and to add your own files to
-it: Papelada never overwrites them. It ignores them until you tap **Scan for new files**
+it: PapeRanger never overwrites them. It ignores them until you tap **Scan for new files**
 in the settings (the gear icon): every file in a section's folder it doesn't know
 becomes a document titled after the file, dated from the file, and every new folder
 at the top of the volume becomes a section. Scanning is unavailable while encryption is
-on. Don't rename or move the files Papelada created by hand, though. It keeps track of them by name,
+on. Don't rename or move the files PapeRanger created by hand, though. It keeps track of them by name,
 so do that from the app.
 
 Editing a page rewrites its file, and converting it changes the extension too
 (`Passport.jpg` becomes `Passport.png` or `Passport.pdf`). The page as uploaded is
-kept in `.papelada/originals/` until you restore it.
+kept in `.paperanger/originals/` until you restore it.
 
 ## Backups
 
-Back up the documents folder: it holds everything, including `.papelada/`. If you
+Back up the documents folder: it holds everything, including `.paperanger/`. If you
 use encryption, back up the key separately.

@@ -1,8 +1,8 @@
-site_name: Papelada
+site_name: PapeRanger
 site_description: A self-hosted home for your household's paperwork.
-site_url: https://www.gustavofurtado.com/papelada/
-repo_url: https://github.com/GusFurtado/papelada
-repo_name: GusFurtado/papelada
+site_url: https://www.gustavofurtado.com/PapeRanger/
+repo_url: https://github.com/GusFurtado/PapeRanger
+repo_name: GusFurtado/PapeRanger
 edit_uri: edit/main/docs/
 
 extra_css:
@@ -10,18 +10,20 @@ extra_css:
 
 theme:
   name: material
+  logo: assets/icon.png
+  favicon: assets/favicon.png
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: blue grey
-      accent: blue
+      primary: custom
+      accent: light green
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: blue grey
-      accent: blue
+      primary: custom
+      accent: light green
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
