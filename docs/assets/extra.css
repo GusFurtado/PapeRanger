@@ -22,3 +22,23 @@
 [data-md-color-scheme="slate"] {
   --md-typeset-a-color: #9ccc65;
 }
+
+/* Home page screenshots: phone screenshots side by side, linked to the full size. */
+.shots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+  max-width: 36rem;
+  margin: 1.5em 0;
+}
+
+.shots a {
+  display: block;
+}
+
+.shots img {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 6px;
+}
