@@ -1253,6 +1253,17 @@ button.page-preview-item {
   filter: grayscale(1) contrast(1.4) brightness(1.05);
 }
 
+/* Cropper.js draws the crop box in its own blue; use the theme's accent. */
+.crop-container .cropper-view-box {
+  outline-color: var(--accent);
+}
+
+.crop-container .cropper-line,
+.crop-container .cropper-point,
+.crop-container .cropper-point.point-se::before {
+  background-color: var(--accent);
+}
+
 .editor-tools {
   display: flex;
   flex-wrap: wrap;
