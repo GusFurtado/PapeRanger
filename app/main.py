@@ -1,4 +1,4 @@
-"""Papelada's HTTP API and static frontend.
+"""PapeRanger's HTTP API and static frontend.
 
 Run with `uvicorn app.main:create_app --factory`. Configuration comes from the
 environment: DATA_DIR (default /data), ENCRYPTION_KEY or ENCRYPTION_KEY_FILE, and
@@ -33,7 +33,7 @@ PUBLIC_API_PATHS = {"/api/health", "/api/session", "/api/login", "/api/logout"}
 
 
 DESCRIPTION = """
-The API behind Papelada's web app: everything the app does goes through it.
+The API behind PapeRanger's web app: everything the app does goes through it.
 
 - **Documents** belong to one **section** and carry any number of **tags**. A
   document is one or more **pages** (any file type; images and PDFs preview inline).
@@ -418,12 +418,12 @@ def create_document(
     responses={200: {"content": {"application/zip": {}}}, **NOT_FOUND},
 )
 def download_documents(body: DownloadRequest, lib: Library = Depends(get_library)) -> Response:
-    """`papelada.zip`, laid out like the volume (`Section/Title.ext`), whether or not
+    """`paperanger.zip`, laid out like the volume (`Section/Title.ext`), whether or not
     the library is encrypted."""
     return Response(
         content=lib.export_zip(body.ids),
         media_type="application/zip",
-        headers={"Content-Disposition": _content_disposition("attachment", "papelada.zip")},
+        headers={"Content-Disposition": _content_disposition("attachment", "paperanger.zip")},
     )
 
 
@@ -440,9 +440,9 @@ def download_documents(body: DownloadRequest, lib: Library = Depends(get_library
     },
 )
 def download_pdfs(body: PdfDownloadRequest, lib: Library = Depends(get_library)) -> Response:
-    """Each document as one PDF, like `GET /documents/{doc_id}/pdf`: `papelada.zip`
+    """Each document as one PDF, like `GET /documents/{doc_id}/pdf`: `paperanger.zip`
     with one PDF per document (`Section/Title.pdf`), or with `merge`, one PDF of
-    them all (`papelada.pdf`, or the document's name when there's only one)."""
+    them all (`paperanger.pdf`, or the document's name when there's only one)."""
     content, filename = lib.export_pdfs(body.ids, body.merge)
     return Response(
         content=content,
@@ -602,7 +602,7 @@ def create_app(library: Optional[Library] = None, credentials: Optional[Tuple[st
         library = Library(Path(os.environ.get("DATA_DIR", "/data")), load_key_from_env())
 
     app = FastAPI(
-        title="Papelada",
+        title="PapeRanger",
         description=DESCRIPTION,
         openapi_tags=TAGS,
         docs_url="/api/docs",

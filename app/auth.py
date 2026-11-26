@@ -17,7 +17,7 @@ from collections import deque
 from pathlib import Path
 from typing import Deque, Dict, Optional, Tuple
 
-COOKIE_NAME = "papelada_session"
+COOKIE_NAME = "paperanger_session"
 SESSION_SECONDS = 14 * 24 * 3600
 
 # Failed logins are counted per client address, and across all clients (a proxy

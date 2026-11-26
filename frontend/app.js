@@ -153,7 +153,7 @@
   var chosenIcon = 'folder';
   var nameDialogSave = null;
 
-  var ACTIVE_SECTION_KEY = 'papelada.activeSection';
+  var ACTIVE_SECTION_KEY = 'paperanger.activeSection';
   var EXPIRING_DAYS = 30;
 
   function remember(key, value) {
@@ -508,9 +508,10 @@
         img.alt = '';
         thumb.appendChild(img);
       } else {
-        thumb.innerHTML = icon('file-text');
-        // A scanned file can have an empty ext (see CLAUDE.md, Scan): icon only then.
-        if (first && first.ext) thumb.appendChild(el('span', 'thumb-ext', extLabel(first)));
+        var sheet = el('span', 'sheet');
+        // A scanned file can have an empty ext (see CLAUDE.md, Scan): a blank page then.
+        if (first && first.ext) sheet.appendChild(el('span', 'thumb-ext', extLabel(first)));
+        thumb.appendChild(sheet);
       }
       if (doc.pages.length > 1) thumb.appendChild(el('span', 'page-badge', doc.pages.length));
       var expiry = expiryStatus(doc);
@@ -1406,16 +1407,31 @@
   }
 
   function renderThemes() {
+    var modes = $('modeSwitch');
+    modes.innerHTML = '';
+    var activeMode = THEME.mode();
+    MODES.forEach(function (m) {
+      var btn = el('button', m === activeMode ? 'active' : '', t('mode.' + m));
+      btn.type = 'button';
+      btn.setAttribute('aria-pressed', m === activeMode ? 'true' : 'false');
+      btn.addEventListener('click', function () {
+        THEME.setMode(m);
+        renderThemes();
+      });
+      modes.appendChild(btn);
+    });
+
     var grid = $('themeGrid');
     grid.innerHTML = '';
     var active = THEME.current().id;
+    var dark = THEME.isDark();
     THEMES.forEach(function (theme) {
       var btn = el('button', theme.id === active ? 'active' : '');
       btn.type = 'button';
       var swatch = el('span', 'theme-swatch');
-      swatch.style.background = theme.bg;
+      swatch.style.background = dark ? theme.dark : LIGHT_BG;
       var bar = el('i');
-      bar.style.background = theme.accent;
+      bar.style.background = dark ? theme.darkAccent : theme.accent;
       swatch.appendChild(bar);
       btn.appendChild(swatch);
       btn.appendChild(el('span', null, t('theme.' + theme.id)));

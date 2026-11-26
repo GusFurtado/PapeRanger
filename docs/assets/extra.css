@@ -1,8 +1,24 @@
-/* Header background: the Papelada card from gustavofurtado.com. */
-.md-header {
-  background: #0c1016 url("https://www.gustavofurtado.com/assets/img/projects/papelada.svg") center / cover no-repeat;
+/* The Ranger palette, the same four colors as the app icon: forest green
+   #2E7D32, highlight #9CCC65, shadow #192B24, moon #F5D98B. */
+:root {
+  --md-primary-fg-color: #2e7d32;
+  --md-primary-fg-color--light: #9ccc65;
+  --md-primary-fg-color--dark: #1f5a23;
+}
+
+.md-header,
+.md-tabs {
+  background: linear-gradient(100deg, #192b24 0%, #1f5a23 55%, #2e7d32 100%);
 }
 
 .md-header[data-md-state="shadow"] {
   box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.4), 0 0.2rem 0.4rem rgba(0, 0, 0, 0.5);
+}
+
+.md-header__button.md-logo img {
+  border-radius: 15%;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-typeset-a-color: #9ccc65;
 }

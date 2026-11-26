@@ -1,16 +1,18 @@
-# Papelada
+# PapeRanger
 
 **A self-hosted home for your household's paperwork.**
 
-[![Release](https://img.shields.io/github/v/release/GusFurtado/papelada)](https://github.com/GusFurtado/papelada/releases)
-[![CI](https://github.com/GusFurtado/papelada/actions/workflows/ci.yml/badge.svg)](https://github.com/GusFurtado/papelada/actions/workflows/ci.yml)
-[![License](https://img.shields.io/github/license/GusFurtado/papelada)](https://github.com/GusFurtado/papelada/blob/main/LICENSE)
+[![Release](https://img.shields.io/github/v/release/GusFurtado/PapeRanger)](https://github.com/GusFurtado/PapeRanger/releases)
+[![CI](https://github.com/GusFurtado/PapeRanger/actions/workflows/ci.yml/badge.svg)](https://github.com/GusFurtado/PapeRanger/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/GusFurtado/PapeRanger)](https://github.com/GusFurtado/PapeRanger/blob/main/LICENSE)
 
 IDs, exam results, receipts, contracts, vaccination cards: photograph a document with your phone (or
 upload any file), file it under a section you created, tag it, and find it again
 later.
 
-*Papelada* is Portuguese for "paperwork", or more precisely "a pile of papers".
+The name is *papelada* (Portuguese for "paperwork", or more precisely "a pile of papers")
+plus a ranger to keep it in order. Up to v0.4 it was called Papelada; see
+[upgrading from Papelada](installation.md#upgrading-from-papelada).
 
 <p>
   <img src="assets/screenshot-list.png" width="165" alt="Documents of one section, with search, filters and expiry badges">
@@ -37,13 +39,13 @@ later.
 - **Optional encryption at rest**, switchable any time. The key never lives in the volume.
 - **Optional login** for one user, set with two environment variables.
 - **Scan** the volume to pick up files and folders you added by hand.
-- Six color themes, light and dark.
+- Six color themes, each light and dark; by default the mode follows the system.
 - **Download** a document as one PDF. A selection of documents downloads as a zip of
   their files laid out like the volume, a zip with one PDF per document, or one PDF of
   them all, in the order you selected them.
 - English and Brazilian Portuguese, picked from the browser's language.
 - One small container: Python (FastAPI) and a plain JS frontend, no database, no
-  build step, no third-party requests (fonts and libraries are bundled), except on the
+  build step, no third-party requests (libraries are bundled, the system font is used), except on the
   API docs page at `/api/docs`, whose Swagger UI loads from a CDN.
 
 ## Where to go next
@@ -51,14 +53,13 @@ later.
 - [Installation](installation.md): Docker Compose, and the settings in `.env`
 - [Your documents on disk](storage.md): how the volume is laid out, and scanning files you add by hand
 - [Encryption](encryption.md): encrypting the volume, and keeping the key safe
-- [Security](security.md): the optional login, and running Papelada outside your home network
+- [Security](security.md): the optional login, and running PapeRanger outside your home network
 
 ## Credits
 
 Icons from [Lucide](https://lucide.dev) (ISC), the crop box by
 [Cropper.js](https://github.com/fengyuanchen/cropperjs) (MIT), image processing by
 [Pillow](https://python-pillow.org) (MIT-CMU), PDFs by
-[pypdf](https://github.com/py-pdf/pypdf) (BSD), and the
-[IBM Plex Sans](https://github.com/IBM/plex) and
-[Instrument Serif](https://github.com/Instrument/instrument-serif) fonts (SIL OFL).
-Their licenses are in [`frontend/vendor/`](https://github.com/GusFurtado/papelada/tree/main/frontend/vendor).
+[pypdf](https://github.com/py-pdf/pypdf) (BSD), and the wordmark in
+[Montserrat](https://github.com/JulietaUla/Montserrat) (SIL OFL), outlined.
+Their licenses are in [`frontend/vendor/`](https://github.com/GusFurtado/PapeRanger/tree/main/frontend/vendor).
